@@ -43,16 +43,18 @@ const ResetConfirmationModal: React.FC<{
             <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md animate-pop-in text-center">
                 <AlertIcon className="h-16 w-16 text-red-500 mx-auto mb-4" />
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">Você tem certeza?</h3>
-                <p className="text-textSecondary mb-6">
+                <p className="text-textSecondary mb-6 text-sm">
                     Esta ação apagará permanentemente todos os envios de usuários, pontuações, rankings e recursos.
-                    O gabarito será restaurado para o padrão. <strong>Esta ação não pode ser desfeita.</strong>
+                    O gabarito oficial será restaurado para o padrão.
+                    <br/><br/>
+                    <strong>ATENÇÃO:</strong> Os tópicos do edital e o mapeamento das questões <strong>NÃO</strong> serão apagados.
                 </p>
                 <div className="flex justify-center space-x-4">
                     <button onClick={onClose} className="bg-gray-300 text-textSecondary font-bold py-2 px-6 rounded-lg hover:bg-gray-400">
                         Voltar
                     </button>
                     <button onClick={onConfirm} className="bg-red-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-700">
-                        Sim, Tenho Certeza
+                        Sim, Resetar Dados
                     </button>
                 </div>
             </div>
@@ -504,7 +506,7 @@ const AdminView: React.FC<AdminViewProps> = ({
                             className="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors flex items-center"
                         >
                             <AlertIcon />
-                            Restaurar Todos os Dados
+                            Restaurar Dados (Manter Mapeamento)
                         </button>
                     </div>
                 </div>

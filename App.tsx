@@ -424,9 +424,20 @@ const App: React.FC = () => {
   
   const handleResetAllData = useCallback(async () => {
     try {
-        await db.setData(db.defaultState);
-        setAppState(db.defaultState);
-        alert('Todos os dados foram restaurados para o estado inicial.');
+        // Fetch current state to retrieve configuration we want to preserve
+        const currentState = await db.getData();
+
+        // Create a new state based on default, but preserve Edital Topics and Question Metadata
+        // as these are "Test Configuration" not "User Data"
+        const newState: DBState = {
+            ...db.defaultState,
+            editalTopics: currentState.editalTopics,
+            questionMetadata: currentState.questionMetadata
+        };
+
+        await db.setData(newState);
+        setAppState(newState);
+        alert('Todos os dados de usuários e recursos foram apagados. O mapeamento do edital foi mantido.');
     } catch (e) {
         alert('Falha ao restaurar os dados. Verifique sua conexão e tente novamente.');
     }

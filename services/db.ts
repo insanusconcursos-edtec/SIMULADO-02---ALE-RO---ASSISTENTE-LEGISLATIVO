@@ -21,7 +21,7 @@ export const defaultState: DBState = {
   adminAnswers: DEFAULT_ADMIN_ANSWERS,
   appeals: [],
   appealDeadline: '',
-  formTitle: 'SIMULADO 01 - ALE RO - ASSISTENTE LEGISLATIVO (RANKING)',
+  formTitle: 'SIMULADO 02 - ALE RO - ASSISTENTE LEGISLATIVO (RANKING)',
   editalTopics: {},
   questionMetadata: {},
 };
@@ -43,11 +43,24 @@ export const getData = async (): Promise<DBState> => {
     } else {
       // Document doesn't exist, so initialize it with the default state
       console.log("No document found in Firestore. Initializing with default state.");
-      await setData(defaultState);
+      // We attempt to set data. If the DB doesn't exist, this might fail, 
+      // catching the error below which provides the instruction.
+      try {
+        await setData(defaultState);
+      } catch (innerError) {
+         console.warn("Could not initialize default state on server (likely due to missing DB). Continuing with local default state.");
+      }
       return defaultState;
     }
-  } catch (error) {
-    console.error("Failed to read from Firestore, using default state.", error);
+  } catch (error: any) {
+    // Check for specific "database not found" error to help the developer
+    if (error?.code === 'not-found' || (error?.message && error.message.includes('database (default) does not exist'))) {
+        console.error("%c ERRO CRÍTICO: O banco de dados Firestore não foi criado.", "background: red; color: white; font-size: 16px; padding: 4px;");
+        console.error("AÇÃO NECESSÁRIA: Acesse https://console.firebase.google.com, selecione o projeto 'simulado-02-ale-ro', vá em 'Firestore Database' e clique em 'Criar Banco de Dados'.");
+    } else {
+        console.error("Failed to read from Firestore, using default state.", error);
+    }
+    
     // Provide default state on error to prevent app crash
     return { ...defaultState };
   }

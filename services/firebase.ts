@@ -1,14 +1,16 @@
+
 // This tells TypeScript that the 'firebase' object exists on the global scope
 declare var firebase: any;
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBP4KQFfg6gayNS6FsV6Jy4VQ_nGFs4v04",
-  authDomain: "simulado-ale-ro.firebaseapp.com",
-  projectId: "simulado-ale-ro",
-  storageBucket: "simulado-ale-ro.firebasestorage.app",
-  messagingSenderId: "497768330120",
-  appId: "1:497768330120:web:673d33978f104ea399c03d"
+  apiKey: "AIzaSyB-hVOze0viPVGrhpDmgXwIRRQLU8fdhIs",
+  authDomain: "simulado-02-ale-ro.firebaseapp.com",
+  projectId: "simulado-02-ale-ro",
+  storageBucket: "simulado-02-ale-ro.firebasestorage.app",
+  messagingSenderId: "226005457036",
+  appId: "1:226005457036:web:d41acf443526586649c3a9",
+  measurementId: "G-MTFGRWNVTJ"
 };
 
 // Initialize Firebase
